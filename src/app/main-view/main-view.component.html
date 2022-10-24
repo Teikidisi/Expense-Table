@@ -1,0 +1,115 @@
+<div class="main-wrapper">
+  <h1>Ingresos vs Gastos</h1>
+  <div class="d-flex flex-row TableWhole">
+    <div class="">
+      <h2 class="">Flujo de dinero</h2>
+      <div id="tableBorder">
+        <div id="newRowOptions" class="mb-3">
+          <form
+            class="d-flex flex-row"
+            #newEntry="ngForm"
+            (ngSubmit)="onSubmit(newEntry)"
+          >
+            <div class="d-flex flex-column formInput first">
+              <label for="Fecha">Fecha</label>
+              <input
+                type="date"
+                class="inputBox"
+                required
+                name="Fecha"
+                [(ngModel)]="this.Fecha"
+                #fecha="ngModel"
+              />
+            </div>
+            <div class="d-flex flex-column formInput">
+              <label for="Cantidad">Cantidad</label>
+              <input
+                type="number"
+                class="inputBox"
+                required
+                CantidadValida
+                name="Cantidad"
+                [(ngModel)]="this.Cantidad"
+                #cantidad="ngModel"
+              />
+            </div>
+            <div class="d-flex flex-column formInput">
+              <label for="Categoria">Categoría</label>
+              <select
+                [(ngModel)]="this.Categoria"
+                name="Categoria"
+                class="inputBox"
+              >
+                <option [ngValue]="" name="invalid">Seleccionar</option>
+                <option
+                  *ngFor="let cat of Categories | keyvalue"
+                  [ngValue]="cat.value"
+                >
+                  {{ cat.value }}
+                </option>
+              </select>
+            </div>
+            <div class="d-flex flex-column formInput">
+              <label for="Descripcion">Descripción</label>
+              <textarea
+                class="inputBox"
+                name="Descripcion"
+                [(ngModel)]="this.Descripcion"
+                #descripcion="ngModel"
+              ></textarea>
+            </div>
+            <button type="submit">Añadir</button>
+          </form>
+        </div>
+        <div class="border">
+          <table contenteditable="true">
+            <thead></thead>
+            <tbody>
+              <tr *ngFor="let entry of EntriesCollection; let i = index">
+                <td class="index">{{ i + 1 }}</td>
+                <td class="Fecha">{{ entry.Fecha }}</td>
+                <td class="Cantidad">
+                  {{ entry.Cantidad | currency: "MXN":"symbol" }}
+                </td>
+                <td class="`Categoria ${{ entry.Categoria }}`">
+                  {{ entry.Categoria }}
+                </td>
+                <td class="Descripcion">{{ entry.Descripcion }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="border m-2"></div>
+    <div class="d-flex flex-row">
+      <div class="mr-3 ml-2">
+        <h3>Resumen de Datos</h3>
+        <div>
+          <div class="d-flex flex-row">
+            <h5 class="px-3">Total ganado:</h5>
+            <p></p>
+          </div>
+          <div class="d-flex flex-row">
+            <h5 class="px-3">Total gastado:</h5>
+            <p></p>
+          </div>
+          <div class="d-flex flex-row">
+            <h5 class="px-3">Total restante:</h5>
+            <p></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-5">
+        <div class="mb-5">
+          <h3>Gastos</h3>
+          <div></div>
+        </div>
+        <div class="my-5">
+          <h3>Ingresos</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

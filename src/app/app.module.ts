@@ -2,13 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { MainViewComponent } from './main-view/main-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CantidadValidaDirective } from './cantidad-valida.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SideBarComponent,
+    MainViewComponent,
+    CantidadValidaDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

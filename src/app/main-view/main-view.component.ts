@@ -94,7 +94,7 @@ export class MainViewComponent implements OnInit {
     return false;
   }
   public CantidadCheck():boolean{
-    if(this.Cantidad > 0 && this.Cantidad != undefined){
+    if((this.Cantidad > 0 || this.Cantidad < 0)  && this.Cantidad != undefined){
       return true;
     }
     return false;

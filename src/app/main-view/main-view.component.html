@@ -15,6 +15,7 @@
               <input
                 type="date"
                 class="inputBox"
+                [ngClass]="!fecha.valid ? 'invalid' : ''"
                 required
                 name="Fecha"
                 [(ngModel)]="this.Fecha"
@@ -26,6 +27,8 @@
               <input
                 type="number"
                 class="inputBox"
+                onClick="this.select()"
+                [ngClass]="!cantidad.valid ? 'invalid' : ''"
                 required
                 name="Cantidad"
                 [(ngModel)]="this.Cantidad"
@@ -36,8 +39,10 @@
               <label for="Categoria">Categoría</label>
               <select
                 [(ngModel)]="this.Categoria"
+                [ngClass]="!categoria.valid ? 'invalid' : ''"
                 name="Categoria"
                 class="inputBox"
+                #categoria="ngModel"
               >
                 <option [ngValue]="" name="invalid">Seleccionar</option>
                 <option
@@ -61,13 +66,22 @@
           </form>
         </div>
         <div class="border DataTable">
-          <table contenteditable="true">
-            <thead></thead>
+          <table contenteditable="true" class="mx-auto my-3">
+            <thead class="tableHead">
+              <th class="px-2">No.</th>
+              <th class="px-4">Fecha</th>
+              <th class="px-4">Cantidad</th>
+              <th class="px-4">Categoria</th>
+              <th class="px-auto">Descripcion</th>
+            </thead>
             <tbody>
               <tr *ngFor="let entry of EntriesCollection; let i = index">
                 <td class="index">{{ i + 1 }}</td>
                 <td class="Fecha">{{ entry.Fecha }}</td>
-                <td class="Cantidad">
+                <td
+                  class="Cantidad"
+                  [ngClass]="entry.Cantidad > 0 ? 'valid' : 'invalid'"
+                >
                   {{ entry.Cantidad | currency: "MXN":"symbol" }}
                 </td>
                 <td class="`Categoria ${{ entry.Categoria }}`">
@@ -85,29 +99,50 @@
     <div class="d-flex flex-row">
       <div class="mr-3 ml-2">
         <h3>Resumen de Datos</h3>
-        <div>
-          <div class="d-flex flex-row">
-            <h5 class="px-3">Total ganado:</h5>
-            <p></p>
-          </div>
-          <div class="d-flex flex-row">
-            <h5 class="px-3">Total gastado:</h5>
-            <p></p>
-          </div>
-          <div class="d-flex flex-row">
-            <h5 class="px-3">Total restante:</h5>
-            <p></p>
-          </div>
+        <div class="containerGridBig">
+          <h5 class="pl-3 ingresos">Total ganado:</h5>
+          <p class="numberClear mx-1">{{ Ingresos }}</p>
+          <h5 class="pl-3 gastos">Total gastado:</h5>
+          <p class="numberClear mx-1">{{ Gastos }}</p>
+          <h5 class="pl-3">Total restante:</h5>
+          <p
+            [ngClass]="Total > 0 ? 'valid' : 'invalid'"
+            class="numberClear mx-1"
+          >
+            {{ Total | currency: "MXN" }}
+          </p>
         </div>
       </div>
 
       <div class="m-5">
         <div class="mb-5">
           <h3>Gastos</h3>
-          <div></div>
+          <div class="containerGrid">
+            <span class="personal">Personal:</span>
+            <span class="numberClear mx-1">{{ Personal }}</span>
+            <span class="food">Food:</span>
+
+            <span class="numberClear mx-1">{{ Food }}</span>
+            <span class="junkfood">Junk Food:</span>
+            <span class="numberClear mx-1">{{ JunkFood }}</span>
+            <span class="gaming">Gaming:</span>
+            <span class="numberClear mx-1">{{ Gaming }}</span>
+            <span class="subscriptions">Subscriptions:</span>
+            <span class="numberClear mx-1">{{ Subscriptions }}</span>
+            <span class="misc">Misc:</span>
+            <span class="numberClear mx-1">{{ Misc }}</span>
+            <span class="groceries">Groceries/Gas:</span>
+            <span class="numberClear mx-1">{{ Groceries }}</span>
+          </div>
         </div>
         <div class="my-5">
           <h3>Ingresos</h3>
+          <div class="containerGrid">
+            <span class="work">Work:</span>
+            <span class="numberClear mx-1">{{ Work }}</span>
+            <span class="deposit">Deposits:</span>
+            <span class="numberClear mx-1">{{ Deposits }}</span>
+          </div>
         </div>
       </div>
     </div>

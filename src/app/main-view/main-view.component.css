@@ -1,10 +1,16 @@
 table, th , td {
   border: 1px solid black;
+  text-align: center;
 }
 
 #tableBorder {
   border: 1px solid black;
   width:50em;
+}
+
+table{
+  max-width: 650px;
+
 }
 
 #newRowOptions{
@@ -45,10 +51,77 @@ table, th , td {
   margin: auto;
 }
 
-.TableSection{
-  background-color: antiquewhite;
+
+
+.tableHead{
+  background-color: rgba(127,219,255,0.3);
 }
 
-.DataTable{
+.invalid{
+  background-color: rgba(255,96,96,0.8);
+}
 
+.valid{
+  background-color: rgba(32,146,37,0.8);
+}
+
+.personal{
+  background-color: rgba(142, 89, 47, 0.8);
+}
+
+.work{
+  background-color: rgba(22, 176, 2, 0.8) ;
+}
+
+.deposit{
+  background-color: rgba(82, 232, 63, 0.8);
+}
+
+.food{
+  background-color: rgba(232, 108, 7, 0.8);
+}
+
+.junkfood{
+  background-color: rgba(231, 4, 153, 0.8);
+}
+
+.subscriptions{
+  background-color: rgba(255,213,5,0.8) ;
+}
+
+.gaming{
+  background-color: rgba(214, 0, 0, 0.8);
+}
+
+.misc{
+  background-color: rgba(2, 174, 176, 0.8);
+}
+
+.groceries{
+  background-color: rgba(143, 4, 231, 0.8);
+}
+
+.ingresos{
+  background-color: rgba(27, 202, 0, 0.8);
+}
+
+.gastos{
+  background-color: rgba(202, 0, 0, 0.8);
+}
+
+.numberClear{
+  background-color: white;
+  text-align: left;
+}
+
+.containerGrid{
+  display:grid;
+  grid-template-columns: 102px 100px;
+  text-align:end;
+}
+
+.containerGridBig{
+  display:grid;
+  grid-template-columns: 175px 100px;
+  text-align: end;
 }

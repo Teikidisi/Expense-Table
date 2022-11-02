@@ -13,22 +13,32 @@ export class MainViewComponent implements OnInit {
 
   public Entry = new EntryModel();
   public EntriesCollection: EntryModel[] = [];
-  public Fecha:string;
-  public Cantidad: number;
+  public Fecha:string = "01/01/0001";
+  public Cantidad: number = 0;
   public Categoria: string = 'Seleccionar';
   public Descripcion: string = '';
   public Categories: (string|Categories)[] = Object.values(Categories).filter(x => isNaN(Number(x)));
 
-  constructor(private formBuilder : FormBuilder) {
-    console.log(this.Entry)
-    console.log(this.EntriesCollection);
+  public Total: number = 0;
+  public Gastos: number = 0;
+  public Ingresos: number = 0;
 
+  public Personal: number = 0;
+  public Groceries: number = 0;
+  public Gaming: number = 0;
+  public Food: number = 0;
+  public JunkFood: number = 0;
+  public Subscriptions: number = 0;
+  public Misc: number = 0;
+  public Work: number = 0;
+  public Deposits: number = 0;
+
+  constructor(private formBuilder : FormBuilder) {
   }
 
 
   ngOnInit(): void {
-    console.log(this.EntriesCollection[0]);
-    console.log(this.Fecha);
+    this.InitCalculateChecks(this.EntriesCollection);
   }
 
 
@@ -47,8 +57,10 @@ export class MainViewComponent implements OnInit {
     this.Entry.Categoria = this.Categoria;
     this.Entry.Descripcion = this.Descripcion;
     this.EntriesCollection.push(this.Entry);
+    this.AddCalculateCheck(this.EntriesCollection);
+
     this.Entry = new EntryModel();
-    this.Fecha = "";
+    this.Fecha = "01/01/0001";
     this.Cantidad = 0;
     this.Categoria = "";
     this.Descripcion = "";
@@ -59,16 +71,19 @@ export class MainViewComponent implements OnInit {
     let validCat = this.CategoriaCheck();
     let validFecha = this.FechaCheck();
     let validCant = this.CantidadCheck();
-    console.log(form.controls);
+
     if(!validCat || !validFecha || !validCant){
       if (!validCat){
         form.controls["Categoria"].setErrors({"invalid":true})
+        form.controls["Categoria"].markAsTouched();
       }
       if (!validFecha){
         form.controls["Fecha"].setErrors({invalid:true})
+        form.controls["Fecha"].markAsTouched();
       }
       if (!validCant){
         form.controls["Cantidad"].setErrors({invalid:true})
+        form.controls["Cantidad"].markAsTouched();
       }
       return false;
     }
@@ -88,7 +103,7 @@ export class MainViewComponent implements OnInit {
     return false;
   }
   public FechaCheck():boolean{
-    if(this.Fecha != undefined && this.Fecha != null && this.Fecha != ""){
+    if(this.Fecha != undefined && this.Fecha != null && this.Fecha != "" && this.Fecha != "01/01/0001"){
       return true;
     }
     return false;
@@ -99,6 +114,69 @@ export class MainViewComponent implements OnInit {
     }
     return false;
   }
+
+  public InitCalculateChecks(entries: EntryModel[]):void{
+    entries.forEach(entry => {
+      this.TotalsSum(entry);
+    });
+    return;
+  }
+
+  public AddCalculateCheck(entries: EntryModel[]):void{
+    this.TotalsSum(entries[entries.length-1]);
+    return;
+  }
+
+  public TotalsSum(entry: EntryModel): void {
+    console.log(entry);
+    this.Total += entry.Cantidad;
+    if(entry.Cantidad > 0 ){
+      this.Ingresos += entry.Cantidad;
+    } else {
+      this.Gastos += entry.Cantidad
+    }
+    //Category sums
+    switch(entry.Categoria){
+      case "Groceries/Gas":{
+        this.Groceries+=entry.Cantidad;
+        break;
+      }
+      case"Gaming": {
+        this.Gaming += entry.Cantidad;
+        break;
+      }
+      case "Food": {
+        this.Food += entry.Cantidad;
+        break;
+      }
+      case "Junk Food": {
+        this.JunkFood += entry.Cantidad;
+        break;
+      }
+      case "Subscriptions":{
+        this.Subscriptions += entry.Cantidad;
+        break;
+      }
+      case "Personal": {
+        this.Personal += entry.Cantidad;
+        break;
+      }
+      case "Misc": {
+        this.Misc += entry.Cantidad;
+        break;
+      }
+      case "Work": {
+        this.Work += entry.Cantidad;
+        break;
+      }
+      case "Deposits": {
+        this.Deposits += entry.Cantidad;
+        break;
+      }
+    }
+    return;
+  }
+
 
 
 

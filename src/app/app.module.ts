@@ -7,19 +7,23 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CantidadValidaDirective } from './cantidad-valida.directive';
+import { AppRoutingModule } from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     SideBarComponent,
     MainViewComponent,
-    CantidadValidaDirective
+    CantidadValidaDirective,
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

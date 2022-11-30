@@ -7,4 +7,5 @@ export enum Categories {
   "Personal"=6,
   "Misc"=7,
   "Work"=8,
-  "Deposits"=9}
+  "Deposits"=9,
+  "Waste"=10}

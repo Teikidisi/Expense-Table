@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Categories } from '../Models/Categories';
 import { EntryModel } from '../Models/Entry';
 import { NgForm } from '@angular/forms';
 import { NgModel, FormBuilder } from '@angular/forms';
+import { createClient } from '@supabase/supabase-js'
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { TableDataService } from '../table-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'MainView',
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.css']
 })
+
+
 export class MainViewComponent implements OnInit {
+
+  constructor(private formBuilder : FormBuilder, private tableService: TableDataService, private router:Router) {
+
+  }
 
   public Entry = new EntryModel();
   public EntriesCollection: EntryModel[] = [];
@@ -32,12 +44,15 @@ export class MainViewComponent implements OnInit {
   public Misc: number = 0;
   public Work: number = 0;
   public Deposits: number = 0;
+  public Waste: number = 0;
+  public InitData: any;
 
-  constructor(private formBuilder : FormBuilder) {
-  }
 
 
   ngOnInit(): void {
+    this.tableService.getAllData().then((data:any)=> console.log(data)
+    )
+
     this.InitCalculateChecks(this.EntriesCollection);
   }
 
@@ -58,9 +73,10 @@ export class MainViewComponent implements OnInit {
     this.Entry.Descripcion = this.Descripcion;
     this.EntriesCollection.push(this.Entry);
     this.AddCalculateCheck(this.EntriesCollection);
+    this.tableService.addEntry(this.Entry);
 
     this.Entry = new EntryModel();
-    this.Fecha = "01/01/0001";
+    this.Fecha = "0001-01-01";
     this.Cantidad = 0;
     this.Categoria = "";
     this.Descripcion = "";
@@ -171,6 +187,10 @@ export class MainViewComponent implements OnInit {
       }
       case "Deposits": {
         this.Deposits += entry.Cantidad;
+        break;
+      }
+      case "Waste": {
+        this.Waste += entry.Cantidad;
         break;
       }
     }

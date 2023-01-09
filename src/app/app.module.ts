@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CantidadValidaDirective } from './cantidad-valida.directive';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
+import { LogInScreenComponent } from './log-in-screen/log-in-screen.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import {HttpClientModule} from '@angular/common/http';
     SideBarComponent,
     MainViewComponent,
     CantidadValidaDirective,
+    LogInScreenComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

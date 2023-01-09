@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   SUPABASE_URL: 'https://sbzdxkeneqfjjzypgkng.supabase.co',
-  SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiemR4a2VuZXFmamp6eXBna25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc0MjMxNTEsImV4cCI6MTk4Mjk5OTE1MX0.IZmoPW_qU67FlpUuLqNcfO9pefZTsocvbJSPDBEQRqY',
-
+  SUPABASE_KEY_SERVICE_ROLE: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiemR4a2VuZXFmamp6eXBna25nIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NzQyMzE1MSwiZXhwIjoxOTgyOTk5MTUxfQ.hKYKplvBMB-Qay00R0S0QJY_e2DJvOPk1F2Ee-TziE8',
+  SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiemR4a2VuZXFmamp6eXBna25nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc0MjMxNTEsImV4cCI6MTk4Mjk5OTE1MX0.IZmoPW_qU67FlpUuLqNcfO9pefZTsocvbJSPDBEQRqY'
 };
 
 /*

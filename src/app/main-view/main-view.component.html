@@ -30,6 +30,7 @@
                 onClick="this.select()"
                 [ngClass]="!cantidad.valid ? 'invalid' : ''"
                 required
+                CantidadValida
                 name="Cantidad"
                 [(ngModel)]="this.Cantidad"
                 #cantidad="ngModel"
@@ -66,7 +67,7 @@
           </form>
         </div>
         <div class="border DataTable">
-          <table contenteditable="true" class="mx-auto my-3">
+          <table class="mx-auto my-3">
             <thead class="tableHead">
               <th class="px-2">No.</th>
               <th class="px-4">Fecha</th>
@@ -84,10 +85,11 @@
                 >
                   {{ entry.Cantidad | currency: "MXN":"symbol" }}
                 </td>
-                <td class="`Categoria ${{ entry.Categoria }}`">
+                <td class="Categoria {{ entry.Categoria }}">
                   {{ entry.Categoria }}
                 </td>
                 <td class="Descripcion">{{ entry.Descripcion }}</td>
+                <td><button (click)="deleteEntry(entry,this.User.id)">Borrar</button></td>
               </tr>
             </tbody>
           </table>
@@ -102,8 +104,10 @@
         <div class="containerGridBig">
           <h5 class="pl-3 ingresos">Total ganado:</h5>
           <p class="numberClear mx-1">{{ Ingresos }}</p>
+          <p>{{ingresosPorcentaje}}%</p>
           <h5 class="pl-3 gastos">Total gastado:</h5>
           <p class="numberClear mx-1">{{ Gastos }}</p>
+          <p>{{gastosPorcentaje}}%</p>
           <h5 class="pl-3">Total restante:</h5>
           <p
             [ngClass]="Total > 0 ? 'valid' : 'invalid'"
@@ -120,21 +124,28 @@
           <div class="containerGrid">
             <span class="personal">Personal:</span>
             <span class="numberClear mx-1">{{ Personal }}</span>
+            <span class="px-1">{{personalPorcentaje}}%</span>
             <span class="food">Food:</span>
-
             <span class="numberClear mx-1">{{ Food }}</span>
+            <span class="px-1">{{foodPorcentaje}}%</span>
             <span class="junkfood">Junk Food:</span>
             <span class="numberClear mx-1">{{ JunkFood }}</span>
+            <span class="px-1">{{junkfoodPorcentaje}}%</span>
             <span class="gaming">Gaming:</span>
             <span class="numberClear mx-1">{{ Gaming }}</span>
+            <span class="px-1">{{gamingPorcentaje}}%</span>
             <span class="subscriptions">Subscriptions:</span>
             <span class="numberClear mx-1">{{ Subscriptions }}</span>
+            <span class="px-1">{{subscriptionsPorcentaje}}%</span>
             <span class="misc">Misc:</span>
             <span class="numberClear mx-1">{{ Misc }}</span>
+            <span class="px-1">{{miscPorcentaje}}%</span>
             <span class="groceries">Groceries/Gas:</span>
             <span class="numberClear mx-1">{{ Groceries }}</span>
+            <span class="px-1">{{groceriesPorcentaje}}%</span>
             <span class="waste">Waste:</span>
             <span class="numberClear mx-1">{{ Waste }}</span>
+            <span class="px-1">{{wastePorcentaje}}%</span>
           </div>
         </div>
         <div class="my-5">
@@ -142,9 +153,10 @@
           <div class="containerGrid">
             <span class="work">Work:</span>
             <span class="numberClear mx-1">{{ Work }}</span>
+            <span class="px-1">{{workPorcentaje}}%</span>
             <span class="deposit">Deposits:</span>
             <span class="numberClear mx-1">{{ Deposits }}</span>
-            <p>p</p>
+            <span class="px-1">{{depositsPorcentaje}}%</span>
           </div>
         </div>
       </div>

@@ -282,7 +282,7 @@ export class MainViewComponent implements OnInit {
     this.workPorcentaje = (this.Work/this.Ingresos*100).toFixed(1);
     this.depositsPorcentaje = (this.Deposits/this.Ingresos*100).toFixed(1);
     this.wastePorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
-    this.hobbyPorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
+    this.hobbyPorcentaje = (this.Hobby/this.Gastos*100).toFixed(1);
   }
 
 

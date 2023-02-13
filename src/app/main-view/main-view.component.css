@@ -101,11 +101,11 @@ table{
   background-color: red;
 }
 
-.hobby .Hobby{
+.hobby, .Hobby{
   background-color: gold;
 }
 
-.groceries, .Groceries{
+.groceries, .Groceries\/Gas{
   background-color: rgba(143, 4, 231, 0.8);
 }
 
@@ -132,4 +132,10 @@ table{
   display:grid;
   grid-template-columns: 175px 100px 40px;
   text-align: end;
+}
+
+.paginator{
+  width:max-content;
+  margin-left: 9.8rem;
+  margin-top:1em;
 }

@@ -22,6 +22,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "aot":true,
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
@@ -95,11 +96,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "7bc6a63c-0b21-45f9-9af7-96115612c035"
+    "analytics": "7bc6a63c-0b21-45f9-9af7-96115612c035",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

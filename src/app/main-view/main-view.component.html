@@ -67,6 +67,7 @@
           </form>
         </div>
         <div class="border DataTable">
+
           <table class="mx-auto my-3">
             <thead class="tableHead">
               <th class="px-2">No.</th>
@@ -76,8 +77,8 @@
               <th class="px-auto">Descripcion</th>
             </thead>
             <tbody>
-              <tr *ngFor="let entry of EntriesCollection; let i = index">
-                <td class="index">{{ i + 1 }}</td>
+              <tr *ngFor="let entry of EntriesCollection | paginate: {itemsPerPage: 30, currentPage: p}; let i = index ">
+                <td class="index">{{ entry.displayId }}</td>
                 <td class="Fecha">{{ entry.Fecha }}</td>
                 <td
                   class="Cantidad"
@@ -93,6 +94,9 @@
               </tr>
             </tbody>
           </table>
+          <div class="paginator">
+            <pagination-controls  (pageChange)="p = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import { LogInScreenComponent } from './log-in-screen/log-in-screen.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
+    MatTableModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

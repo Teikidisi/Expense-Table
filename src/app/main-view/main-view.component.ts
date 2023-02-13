@@ -11,6 +11,8 @@ import * as moment from 'moment';
 import { IUserProvider } from '../Handlers/Contracts/IUserProvider';
 import { UserProvider } from '../Handlers/Implementations/UserProvider';
 import { User } from '@supabase/supabase-js';
+import { DisplayEntryModel } from '../Models/DisplayEntry';
+
 
 @Component({
   selector: 'MainView',
@@ -30,12 +32,13 @@ export class MainViewComponent implements OnInit {
   public userProvider: IUserProvider
 
   public Entry = new EntryModel();
-  public EntriesCollection: EntryModel[] = [];
+  public EntriesCollection: DisplayEntryModel[] = [];
   public Fecha = "01/01/0001";
   public Cantidad = 0;
   public Categoria = 'Seleccionar';
   public Descripcion = '';
   public Categories: (string|Categories)[] = Object.values(Categories).filter(x => isNaN(Number(x)));
+  public p=1; 
 
   public Total = 0;
   public Gastos = 0;
@@ -78,8 +81,7 @@ export class MainViewComponent implements OnInit {
 
   public async obtainDataWithCheck():Promise<void>{
     this.tableProvider.getAllDataByDate().then((data) =>{
-      this.EntriesCollection = data
-      this.InitCalculateChecks(this.EntriesCollection);
+      this.InitCalculateChecks(data);
       this.PercentageCheck();
     }).finally()
   }
@@ -102,7 +104,7 @@ export class MainViewComponent implements OnInit {
   }
 
   public async ObtainData(): Promise<void>{
-     this.tableProvider.getAllDataByDate().then((data) => this.EntriesCollection = data);
+     this.tableProvider.getAllDataByDate().then((data) => data);
   }
 
   public async onSubmit(form: NgForm):Promise<void>{
@@ -182,8 +184,18 @@ export class MainViewComponent implements OnInit {
   }
 
   public InitCalculateChecks(entries: EntryModel[]):void{
+    let i = 0;
     entries.forEach(entry => {
+      this.EntriesCollection.push({
+        displayId: i,
+        Fecha: entry.Fecha,
+        Cantidad: entry.Cantidad,
+        Categoria: entry.Categoria,
+        Descripcion: entry.Descripcion,
+        ID: entry.ID
+      })
       this.TotalsSum(entry,false);
+      i++;
     });
     return;
   }

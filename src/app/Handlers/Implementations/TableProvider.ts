@@ -35,7 +35,6 @@ export class TableProvider implements ITableProvider{
           console.error('error',error.message)
           return "error"
         } else{
-          console.log(data);
           return 'Success'
         }
       }

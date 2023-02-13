@@ -8,4 +8,5 @@ export enum Categories {
   "Misc"=7,
   "Work"=8,
   "Deposits"=9,
-  "Waste"=10}
+  "Waste"=10,
+  "Hobby"=11}

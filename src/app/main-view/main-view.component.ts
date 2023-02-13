@@ -51,6 +51,7 @@ export class MainViewComponent implements OnInit {
   public Work: number = 0;
   public Deposits: number = 0;
   public Waste: number = 0;
+  public Hobby: number = 0;
   public User: User;
 
   public gastosPorcentaje:string;
@@ -65,6 +66,7 @@ export class MainViewComponent implements OnInit {
   public personalPorcentaje:string;
   public groceriesPorcentaje:string;
   public miscPorcentaje:string;
+  public hobbyPorcentaje: string;
 
 
 
@@ -127,7 +129,6 @@ export class MainViewComponent implements OnInit {
           this.Cantidad = 0;
           this.Categoria = "";
           this.Descripcion = "";
-          console.log(this.EntriesCollection);
       }
     });
   }
@@ -260,6 +261,10 @@ export class MainViewComponent implements OnInit {
 
         break;
       }
+      case "Hobby": {
+        this.Hobby += entry.Cantidad;
+        break;
+      }
     }
     return;
   }
@@ -277,6 +282,7 @@ export class MainViewComponent implements OnInit {
     this.workPorcentaje = (this.Work/this.Ingresos*100).toFixed(1);
     this.depositsPorcentaje = (this.Deposits/this.Ingresos*100).toFixed(1);
     this.wastePorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
+    this.hobbyPorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
   }
 
 
@@ -289,6 +295,7 @@ export class MainViewComponent implements OnInit {
     "Personal",
     "Misc",
     "Waste",
+    "Hobby",
    ]
 
 }

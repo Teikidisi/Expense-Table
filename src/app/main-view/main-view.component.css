@@ -101,6 +101,10 @@ table{
   background-color: red;
 }
 
+.hobby .Hobby{
+  background-color: gold;
+}
+
 .groceries, .Groceries{
   background-color: rgba(143, 4, 231, 0.8);
 }

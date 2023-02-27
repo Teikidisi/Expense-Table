@@ -8,7 +8,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   {path: 'main', component: MainViewComponent, title:'Money Expenditure Tracker'},
   {path:'login', component: LogInScreenComponent, title:'Login to App'},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path:'**', component: PageNotFoundComponent},
 ]
 

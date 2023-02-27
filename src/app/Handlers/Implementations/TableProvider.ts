@@ -29,13 +29,13 @@ export class TableProvider implements ITableProvider{
         }
       }
     
-      async addEntry(entry: EntryModel,userId:string): Promise<string>{
+      async addEntry(entry: EntryModel,userId:string): Promise<boolean>{
         const {data:data,error} = await this.tableService.addEntry(entry,userId)
         if(error){
           console.error('error',error.message)
-          return "error"
+          return false
         } else{
-          return 'Success'
+          return true
         }
       }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-selector */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { Categories } from '../Models/Categories';
@@ -12,6 +13,7 @@ import { IUserProvider } from '../Handlers/Contracts/IUserProvider';
 import { UserProvider } from '../Handlers/Implementations/UserProvider';
 import { User } from '@supabase/supabase-js';
 import { DisplayEntryModel } from '../Models/DisplayEntry';
+import TableOperations from '../Helpers/table-operations'
 
 
 @Component({
@@ -26,10 +28,13 @@ export class MainViewComponent implements OnInit {
   constructor( private authService: ServerConnectionService, private tableService: TableDataService ) {
     this.tableProvider  = new TableProvider(this.tableService);
     this.userProvider = new UserProvider(this.authService);
+    this.tableOperations = new TableOperations();
   }
 
   public tableProvider: ITableProvider
   public userProvider: IUserProvider
+  public tableOperations: TableOperations;
+  public User: User;
 
   public Entry = new EntryModel();
   public EntriesCollection: DisplayEntryModel[] = [];
@@ -40,36 +45,6 @@ export class MainViewComponent implements OnInit {
   public Categories: (string|Categories)[] = Object.values(Categories).filter(x => isNaN(Number(x)));
   public p=1; 
 
-  public Total = 0;
-  public Gastos = 0;
-  public Ingresos: number = 0;
-
-  public Personal: number = 0;
-  public Groceries: number = 0;
-  public Gaming: number = 0;
-  public Food: number = 0;
-  public JunkFood: number = 0;
-  public Subscriptions: number = 0;
-  public Misc: number = 0;
-  public Work: number = 0;
-  public Deposits: number = 0;
-  public Waste: number = 0;
-  public Hobby: number = 0;
-  public User: User;
-
-  public gastosPorcentaje:string;
-  public ingresosPorcentaje:string;
-  public workPorcentaje:string;
-  public depositsPorcentaje:string;
-  public wastePorcentaje:string;
-  public junkfoodPorcentaje:string;
-  public foodPorcentaje:string;
-  public subscriptionsPorcentaje:string;
-  public gamingPorcentaje:string;
-  public personalPorcentaje:string;
-  public groceriesPorcentaje:string;
-  public miscPorcentaje:string;
-  public hobbyPorcentaje: string;
 
 
 
@@ -79,16 +54,18 @@ export class MainViewComponent implements OnInit {
       this.obtainDataWithCheck();
   }
 
-  public async obtainDataWithCheck():Promise<void>{
-    this.tableProvider.getAllDataByDate().then((data) =>{
+  public obtainDataWithCheck():void{
+    this.ObtainData().then((data)=>{
+      this.UpdateTableView(data);
       this.InitCalculateChecks(data);
-      this.PercentageCheck();
-    }).finally()
+      this.tableOperations.PercentageCheck();
+    })
+
   }
 
 
-  public addEntry(entry: EntryModel,userId:string): void {
-    this.tableProvider.addEntry(entry,userId).then();
+  public async addEntry(entry: EntryModel,userId:string): Promise<boolean> {
+    return await this.tableProvider.addEntry(entry,userId);
   }
 
   public deleteEntry(entry: EntryModel,userId:string):void{
@@ -96,15 +73,15 @@ export class MainViewComponent implements OnInit {
     {
       if(data){
         entry.Cantidad = -entry.Cantidad;
-        this.TotalsSum(entry,true);
-        this.PercentageCheck();
-        this.ObtainData();
+        this.tableOperations.TotalsSum(entry,true);
+        this.tableOperations.PercentageCheck();
+        this.ObtainData().then((data) => this.UpdateTableView(data));
       }
     });
   }
 
-  public async ObtainData(): Promise<void>{
-     this.tableProvider.getAllDataByDate().then((data) => data);
+  public async ObtainData(): Promise<EntryModel[]>{
+     return await this.tableProvider.getAllDataByDate();
   }
 
   public async onSubmit(form: NgForm):Promise<void>{
@@ -121,11 +98,11 @@ export class MainViewComponent implements OnInit {
     if(this.NegativeCategories.includes(this.Entry.Categoria)){
       this.Entry.Cantidad = -this.Entry.Cantidad
     }
-    this.tableProvider.addEntry(this.Entry,this.User.id).then(async (data) =>{
-      if(data == 'Success'){
+    this.addEntry(this.Entry,this.User.id).then(async (data) =>{
+      if(data == true){
           this.AddCalculateCheck(this.Entry)
-          this.PercentageCheck();
-          this.ObtainData();
+          this.tableOperations.PercentageCheck();
+          this.ObtainData().then((data) => this.UpdateTableView(data));
           this.Entry = new EntryModel();
           this.Fecha = moment().format('yyyy-MM-DD');
           this.Cantidad = 0;
@@ -159,9 +136,8 @@ export class MainViewComponent implements OnInit {
       return false;
     }
     return true;
-
-
   }
+
   public CategoriaCheck():boolean{
     if (this.Categoria != "" && this.Categoria != null){
       if(this.Categories.includes(this.Categoria)){
@@ -184,7 +160,19 @@ export class MainViewComponent implements OnInit {
   }
 
   public InitCalculateChecks(entries: EntryModel[]):void{
-    let i = 0;
+    entries.forEach(entry => {
+      this.tableOperations.TotalsSum(entry,false);
+    });
+  }
+
+  public AddCalculateCheck(entry: EntryModel):void{
+    this.tableOperations.TotalsSum(entry,false);
+    return;
+  }
+
+  public UpdateTableView(entries:EntryModel[]): void{
+    this.EntriesCollection.length = 0;
+    let i = 1;
     entries.forEach(entry => {
       this.EntriesCollection.push({
         displayId: i,
@@ -194,107 +182,8 @@ export class MainViewComponent implements OnInit {
         Descripcion: entry.Descripcion,
         ID: entry.ID
       })
-      this.TotalsSum(entry,false);
       i++;
     });
-    return;
-  }
-
-  public AddCalculateCheck(entry: EntryModel):void{
-    this.TotalsSum(entry,false);
-    return;
-  }
-
-  public TotalsSum(entry: EntryModel,isDelete:boolean): void {
-    this.Total += entry.Cantidad;
-    if(isDelete){
-      if(entry.Cantidad > 0 ){
-        this.Gastos += entry.Cantidad;
-      } else {
-        this.Ingresos += entry.Cantidad
-      }
-    } else{
-      if(entry.Cantidad > 0 ){
-        this.Ingresos += entry.Cantidad;
-      } else {
-        this.Gastos += entry.Cantidad
-      }
-    }
-
-    //Category sums
-    switch(entry.Categoria){
-      case "Groceries/Gas":{
-        this.Groceries+=entry.Cantidad;
-
-        break;
-      }
-      case"Gaming": {
-        this.Gaming += entry.Cantidad;
-
-        break;
-      }
-      case "Food": {
-        this.Food += entry.Cantidad;
-
-        break;
-      }
-      case "Junk Food": {
-        this.JunkFood += entry.Cantidad;
-
-        break;
-      }
-      case "Subscriptions":{
-        this.Subscriptions += entry.Cantidad;
-
-        break;
-      }
-      case "Personal": {
-        this.Personal += entry.Cantidad;
-
-        break;
-      }
-      case "Misc": {
-        this.Misc += entry.Cantidad;
-
-        break;
-      }
-      case "Work": {
-        this.Work += entry.Cantidad;
-
-        break;
-      }
-      case "Deposits": {
-        this.Deposits += entry.Cantidad;
-
-        break;
-      }
-      case "Waste": {
-        this.Waste += entry.Cantidad;
-
-        break;
-      }
-      case "Hobby": {
-        this.Hobby += entry.Cantidad;
-        break;
-      }
-    }
-    return;
-  }
-
-  public PercentageCheck():void{
-    this.ingresosPorcentaje = (100 - Math.abs(this.Gastos/this.Ingresos*100)).toFixed(1);
-    this.gastosPorcentaje = (Math.abs(this.Gastos/this.Ingresos*100)).toFixed(1);
-    this.groceriesPorcentaje = (this.Groceries/this.Gastos*100).toFixed(1);
-    this.gamingPorcentaje = (this.Gaming/this.Gastos*100).toFixed(1);
-    this.foodPorcentaje = (this.Food/this.Gastos*100).toFixed(1);
-    this.junkfoodPorcentaje = (this.JunkFood/this.Gastos*100).toFixed(1);
-    this.subscriptionsPorcentaje = (this.Subscriptions/this.Gastos*100).toFixed(1);
-    this.personalPorcentaje = (this.Personal/this.Gastos*100).toFixed(1);
-    this.miscPorcentaje = (this.Misc/(this.Gastos)*100).toFixed(1);
-    this.workPorcentaje = (this.Work/this.Ingresos*100).toFixed(1);
-    this.depositsPorcentaje = (this.Deposits/this.Ingresos*100).toFixed(1);
-    this.wastePorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
-    this.hobbyPorcentaje = (this.Hobby/this.Gastos*100).toFixed(1);
   }
 
 

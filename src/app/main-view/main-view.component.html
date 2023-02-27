@@ -107,17 +107,17 @@
         <h3>Resumen de Datos</h3>
         <div class="containerGridBig">
           <h5 class="pl-3 ingresos">Total ganado:</h5>
-          <p class="numberClear mx-1">{{ Ingresos }}</p>
-          <p>{{ingresosPorcentaje}}%</p>
+          <p class="numberClear mx-1">{{ this.tableOperations.Ingresos }}</p>
+          <p>{{this.tableOperations.ingresosPorcentaje}}%</p>
           <h5 class="pl-3 gastos">Total gastado:</h5>
-          <p class="numberClear mx-1">{{ Gastos }}</p>
-          <p>{{gastosPorcentaje}}%</p>
+          <p class="numberClear mx-1">{{ this.tableOperations.Gastos }}</p>
+          <p>{{this.tableOperations.gastosPorcentaje}}%</p>
           <h5 class="pl-3">Total restante:</h5>
           <p
-            [ngClass]="Total > 0 ? 'valid' : 'invalid'"
+            [ngClass]="this.tableOperations.Total > 0 ? 'valid' : 'invalid'"
             class="numberClear mx-1"
           >
-            {{ Total | currency: "MXN" }}
+            {{ this.tableOperations.Total | currency: "MXN" }}
           </p>
         </div>
       </div>
@@ -127,43 +127,43 @@
           <h3>Gastos</h3>
           <div class="containerGrid">
             <span class="personal">Personal:</span>
-            <span class="numberClear mx-1">{{ Personal }}</span>
-            <span class="px-1">{{personalPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Personal }}</span>
+            <span class="px-1">{{this.tableOperations.personalPorcentaje}}%</span>
             <span class="food">Food:</span>
-            <span class="numberClear mx-1">{{ Food }}</span>
-            <span class="px-1">{{foodPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Food }}</span>
+            <span class="px-1">{{this.tableOperations.foodPorcentaje}}%</span>
             <span class="junkfood">Junk Food:</span>
-            <span class="numberClear mx-1">{{ JunkFood }}</span>
-            <span class="px-1">{{junkfoodPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.JunkFood }}</span>
+            <span class="px-1">{{this.tableOperations.junkfoodPorcentaje}}%</span>
             <span class="gaming">Gaming:</span>
-            <span class="numberClear mx-1">{{ Gaming }}</span>
-            <span class="px-1">{{gamingPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Gaming }}</span>
+            <span class="px-1">{{this.tableOperations.gamingPorcentaje}}%</span>
             <span class="subscriptions">Subscriptions:</span>
-            <span class="numberClear mx-1">{{ Subscriptions }}</span>
-            <span class="px-1">{{subscriptionsPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Subscriptions }}</span>
+            <span class="px-1">{{this.tableOperations.subscriptionsPorcentaje}}%</span>
             <span class="misc">Misc:</span>
-            <span class="numberClear mx-1">{{ Misc }}</span>
-            <span class="px-1">{{miscPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Misc }}</span>
+            <span class="px-1">{{this.tableOperations.miscPorcentaje}}%</span>
             <span class="groceries">Groceries/Gas:</span>
-            <span class="numberClear mx-1">{{ Groceries }}</span>
-            <span class="px-1">{{groceriesPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Groceries }}</span>
+            <span class="px-1">{{this.tableOperations.groceriesPorcentaje}}%</span>
             <span class="waste">Waste:</span>
-            <span class="numberClear mx-1">{{ Waste }}</span>
-            <span class="px-1">{{wastePorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Waste }}</span>
+            <span class="px-1">{{this.tableOperations.wastePorcentaje}}%</span>
             <span class="hobby">Hobby:</span>
-            <span class="numberClear mx-1">{{ Hobby }}</span>
-            <span class="px-1">{{hobbyPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Hobby }}</span>
+            <span class="px-1">{{this.tableOperations.hobbyPorcentaje}}%</span>
           </div>
         </div>
         <div class="my-5">
           <h3>Ingresos</h3>
           <div class="containerGrid">
             <span class="work">Work:</span>
-            <span class="numberClear mx-1">{{ Work }}</span>
-            <span class="px-1">{{workPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Work }}</span>
+            <span class="px-1">{{this.tableOperations.workPorcentaje}}%</span>
             <span class="deposit">Deposits:</span>
-            <span class="numberClear mx-1">{{ Deposits }}</span>
-            <span class="px-1">{{depositsPorcentaje}}%</span>
+            <span class="numberClear mx-1">{{ this.tableOperations.Deposits }}</span>
+            <span class="px-1">{{this.tableOperations.depositsPorcentaje}}%</span>
           </div>
         </div>
       </div>

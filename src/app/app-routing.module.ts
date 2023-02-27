@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'main', component: MainViewComponent, title:'Money Expenditure Tracker'},
   {path:'login', component: LogInScreenComponent, title:'Login to App'},
   {path: '', redirectTo: '/login', pathMatch:'prefix' },
-  {path:'**', component: PageNotFoundComponent},
+  {path:'**', component: PageNotFoundComponent, title:'404'},
 ]
 
 @NgModule({

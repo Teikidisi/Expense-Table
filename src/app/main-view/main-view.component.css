@@ -1,3 +1,5 @@
+@import url('../Styles/categoriesColors.css');
+
 table, th , td {
   border: 1px solid black;
   text-align: center;
@@ -5,14 +7,83 @@ table, th , td {
 
 #tableBorder {
   border: 1px solid black;
-  width:50em;
+  max-width:49.625rem;
+  min-width:38rem;
 }
 
-table{
-  max-width: 650px;
+.tableHead{
+  background-color: rgba(127,219,255,0.3);
+}
+
+.DelBtn{
+  border:hidden;
+}
+
+.ScreenWhole{
+  display:flex;
+  flex-direction: row;
+}
+
+.TableSection{
 
 }
 
+.StatSection{
+  display:flex;
+  flex-direction:row;
+  border-left: 1rem;
+}
+
+@media all and (max-width:50rem) {
+  .ScreenWhole{
+    display:flex;
+    flex-direction:column-reverse;
+  }
+
+  .gastosContainer{
+    width:50%;
+  }
+  .ingresosContainer{
+    width:50%;
+  }
+
+  .tableInputs{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .addBtnDiv{
+    grid-column-end:span 2;
+  }
+}
+
+@media all and (min-width:50rem) and ( max-width:87.5rem){
+  .StatSection{
+    display:flex;
+    flex-direction: column;
+  }
+}
+@media all and (min-width:50rem){
+  .tableInputs{
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+  }
+
+
+
+
+}
+.addBtn{
+  height:28px;
+  width: auto;
+  filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.25));
+  background-color: rgba(0,116,217,0.47);
+  border: 1px;
+  border-radius: 5px;
+  margin: auto;
+}
 #newRowOptions{
   background-color: rgba(127,219,255,0.3);
 }
@@ -28,109 +99,36 @@ table{
 }
 
 .first {
-  margin-left: 2em;
+  margin-left:auto;
 }
 
 .inputBox{
-  width: 8em;
+  width: auto;
   height: 28px;
   border-radius: 5px;
   filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.25));}
 
 .description {
-  width: 12.5em;
-}
-
-.addBtn{
-  height:28px;
-  width: 4em;
-  filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.25));
-  background-color: rgba(0,116,217,0.47);
-  border: 1px;
-  border-radius: 5px;
-  margin: auto;
+  width: auto;
 }
 
 
 
-.tableHead{
-  background-color: rgba(127,219,255,0.3);
-}
 
-.invalid{
-  background-color: rgba(255,96,96,0.8);
-}
 
-.valid{
-  background-color: rgba(32,146,37,0.8);
-}
 
-.personal, .Personal{
-  background-color: rgba(142, 89, 47, 0.8);
-}
 
-.work, .Work{
-  background-color: rgba(22, 176, 2, 0.8) ;
-}
 
-.deposit, .Deposits{
-  background-color: rgba(82, 232, 63, 0.8);
-}
-
-.food, .Food{
-  background-color: rgba(232, 108, 7, 0.8);
-}
-
-.junkfood, .Junk {
-  background-color: rgba(231, 4, 153, 0.8);
-}
-
-.subscriptions, .Subscriptions{
-  background-color: rgba(255,213,5,0.8) ;
-}
-
-.gaming, .Gaming{
-  background-color: rgba(214, 0, 0, 0.8);
-}
-
-.misc, .Misc{
-  background-color: rgba(2, 174, 176, 0.8);
-}
-
-.waste, .Waste{
-  background-color: red;
-}
-
-.hobby, .Hobby{
-  background-color: gold;
-}
-
-.groceries, .Groceries\/Gas{
-  background-color: rgba(143, 4, 231, 0.8);
-}
-
-.ingresos{
-  background-color: rgba(27, 202, 0, 0.8);
-}
-
-.gastos{
-  background-color: rgba(202, 0, 0, 0.8);
-}
-
-.numberClear{
-  background-color: white;
-  text-align: left;
-}
 
 .containerGrid{
   display:grid;
-  grid-template-columns: 102px 75px 40px;
+  grid-template-columns: 6.5rem 5rem 3rem;
   text-align:end;
 }
 
 .containerGridBig{
   display:grid;
-  grid-template-columns: 175px 100px 40px;
+  grid-template-columns: 8.75rem 6rem 3rem;
   text-align: end;
 }
 

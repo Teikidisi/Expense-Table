@@ -1,8 +1,11 @@
 <div class="container">
     <form #Credentials="ngForm" (ngSubmit)="Submit(Credentials)">
-        <div>
+        <div class="Title">
             <p *ngIf="isSignIn">Sign in</p>
             <p *ngIf="!isSignIn">Sign up</p>
+        </div>
+        <div *ngIf="successfulSignUp">
+            <p class="mainDiv success">Cuenta creada exitosamente!</p>
         </div>
         <div class="d-flex flex-col">
             <label for="emailInput">Ingresa tu correo</label>
@@ -13,21 +16,37 @@
             <input type="password" name="pwInput" [(ngModel)]="this.password">
         </div>
         <div *ngIf="isSignIn">
-            <button type="submit">Entrar</button>
+            <button type="submit" >Entrar</button>
+            <div *ngIf="showError" >
+                <p class="error" >Usuario o contraseña incorrecta</p>
+            </div>
         </div>
         <div *ngIf="!isSignIn">
             <button type="submit">Crear cuenta</button>
+            <div *ngIf="showShortPassword">
+                <p class="error">
+                    La contraseña debe tener más de 8 carácteres
+                </p>
+            </div>
+            <div *ngIf="showError">
+                <p class="error">
+                    Error creando cuenta
+                </p>
+            </div>
         </div>
-        <div *ngIf="isSignIn">
+
+        <div *ngIf="isSignIn" class="mainDiv">
             <p class="clickableText" (click)="SignUpSwitch()">No tienes cuenta? Crea una</p>
-            <p (click)="popupPassword = true">Olvidaste tu contraseña?</p>
+            <p (click)="popupPassword = !popupPassword" class="clickableText">Olvidaste tu contraseña?</p>
             <div *ngIf="popupPassword">
                 <label for="emailPW">Ingresa tu correo</label>
                 <input type="email" name="emailPW" [(ngModel)]="this.emailPW">
                 <button type="button" (click)="forgotPassword()">Enviar correo</button>
             </div>
         </div>
-        <p *ngIf="!isSignIn"><a (click)="SignUpSwitch">Entra con tu cuenta</a></p>
+        <div *ngIf="!isSignIn" class="mainDiv">
+            <p class="clickableText"><a (click)="SignUpSwitch()">Entra con tu cuenta</a></p>
+        </div>
 
     </form>
 

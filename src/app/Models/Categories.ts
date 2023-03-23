@@ -9,4 +9,5 @@ export enum Categories {
   "Work"=8,
   "Deposits"=9,
   "Waste"=10,
-  "Hobby"=11}
+  "Hobby"=11,
+  "Ahorros"=12}

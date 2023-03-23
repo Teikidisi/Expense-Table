@@ -16,7 +16,10 @@ export class LogInScreenComponent implements OnInit {
   public password: string;
   public popupPassword = false;
   public emailPW = "";
-  public userProvider: IUserProvider
+  public userProvider: IUserProvider;
+  public showError: boolean = false;
+  public showShortPassword: boolean = false;
+  public successfulSignUp: boolean = false;
 
   constructor(private serverProvider:ServerConnectionService, private router: Router, private route:ActivatedRoute ) { 
     this.userProvider = new UserProvider(this.serverProvider);
@@ -31,6 +34,8 @@ export class LogInScreenComponent implements OnInit {
     if(!this.ValidateInputs){
       return;
     }
+    this.showError = false;
+    this.showShortPassword = false;
     if(this.isSignIn){
       this.LogIn(this.email,this.password).then((success) => {
         if(success){
@@ -43,17 +48,21 @@ export class LogInScreenComponent implements OnInit {
           this.router.navigate(['/main'], {relativeTo: this.route})
         } else{
           console.log('error logging in');
+          this.showError = true;
         }
       });
     } else{
       if (this.password.length < 8 ){
+        this.showShortPassword = true;
         return;
       }
 
       this.SignUp(this.email,this.password).then((success)=>{
         if(success){
-          this.isSignIn = false;
+          this.isSignIn = true;
+          this.successfulSignUp = true;
         } else{
+          this.showError = true;
           console.log('Error signing up');
         }
       })

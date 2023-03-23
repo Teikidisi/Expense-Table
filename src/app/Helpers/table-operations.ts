@@ -1,3 +1,4 @@
+import { Categories } from "../Models/Categories";
 import { EntryModel } from "../Models/Entry";
 
 export default class TableOperations {
@@ -20,6 +21,7 @@ export default class TableOperations {
     public Deposits: number = 0;
     public Waste: number = 0;
     public Hobby: number = 0;
+    public Ahorros: number = 0;
 
   
     public gastosPorcentaje:string;
@@ -35,82 +37,90 @@ export default class TableOperations {
     public groceriesPorcentaje:string;
     public miscPorcentaje:string;
     public hobbyPorcentaje: string;
+    public ahorrosPorcentaje: string;
 
     public TotalsSum(entry: EntryModel,isDelete:boolean): void {
+      if(entry.Categoria !== Categories[12]){
         this.Total += entry.Cantidad;
-        if(isDelete){
-          if(entry.Cantidad > 0 ){
-            this.Gastos += entry.Cantidad;
-          } else {
-            this.Ingresos += entry.Cantidad
-          }
-        } else{
-          if(entry.Cantidad > 0 ){
-            this.Ingresos += entry.Cantidad;
-          } else {
-            this.Gastos += entry.Cantidad
-          }
-        }
-    
-        //Category sums
-        switch(entry.Categoria){
-          case "Groceries/Gas":{
-            this.Groceries+=entry.Cantidad;
-    
-            break;
-          }
-          case"Gaming": {
-            this.Gaming += entry.Cantidad;
-    
-            break;
-          }
-          case "Food": {
-            this.Food += entry.Cantidad;
-    
-            break;
-          }
-          case "Junk Food": {
-            this.JunkFood += entry.Cantidad;
-    
-            break;
-          }
-          case "Subscriptions":{
-            this.Subscriptions += entry.Cantidad;
-    
-            break;
-          }
-          case "Personal": {
-            this.Personal += entry.Cantidad;
-    
-            break;
-          }
-          case "Misc": {
-            this.Misc += entry.Cantidad;
-    
-            break;
-          }
-          case "Work": {
-            this.Work += entry.Cantidad;
-    
-            break;
-          }
-          case "Deposits": {
-            this.Deposits += entry.Cantidad;
-    
-            break;
-          }
-          case "Waste": {
-            this.Waste += entry.Cantidad;
-    
-            break;
-          }
-          case "Hobby": {
-            this.Hobby += entry.Cantidad;
-            break;
-          }
-        }
-        return;
       }
+      if(isDelete){
+        if(entry.Cantidad > 0 ){
+          this.Gastos += entry.Cantidad;
+        } else {
+          this.Ingresos += entry.Cantidad
+        }
+      } else{
+        if(entry.Cantidad > 0 ){
+          this.Ingresos += entry.Cantidad;
+        } else {
+          this.Gastos += entry.Cantidad
+        }
+      }
+  
+      //Category sums
+      switch(entry.Categoria){
+        case "Groceries/Gas":{
+          this.Groceries+=entry.Cantidad;
+  
+          break;
+        }
+        case"Gaming": {
+          this.Gaming += entry.Cantidad;
+  
+          break;
+        }
+        case "Food": {
+          this.Food += entry.Cantidad;
+  
+          break;
+        }
+        case "Junk Food": {
+          this.JunkFood += entry.Cantidad;
+  
+          break;
+        }
+        case "Subscriptions":{
+          this.Subscriptions += entry.Cantidad;
+  
+          break;
+        }
+        case "Personal": {
+          this.Personal += entry.Cantidad;
+  
+          break;
+        }
+        case "Misc": {
+          this.Misc += entry.Cantidad;
+  
+          break;
+        }
+        case "Work": {
+          this.Work += entry.Cantidad;
+  
+          break;
+        }
+        case "Deposits": {
+          this.Deposits += entry.Cantidad;
+  
+          break;
+        }
+        case "Waste": {
+          this.Waste += entry.Cantidad;
+  
+          break;
+        }
+        case "Hobby": {
+          this.Hobby += entry.Cantidad;
+          break;
+        }
+        case "Ahorros": {
+          this.Ahorros += entry.Cantidad;
+          this.Work += entry.Cantidad;
+          break;
+        }
+      }
+      return;
+    }
     
       public PercentageCheck():void{
         this.ingresosPorcentaje = (100 - Math.abs(this.Gastos/this.Ingresos*100)).toFixed(1);
@@ -126,5 +136,6 @@ export default class TableOperations {
         this.depositsPorcentaje = (this.Deposits/this.Ingresos*100).toFixed(1);
         this.wastePorcentaje = (this.Waste/this.Gastos*100).toFixed(1);
         this.hobbyPorcentaje = (this.Hobby/this.Gastos*100).toFixed(1);
+        this.ahorrosPorcentaje = (this.Ahorros/this.Gastos * -100).toFixed(1);
       }
 }

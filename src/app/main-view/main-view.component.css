@@ -24,9 +24,7 @@ table, th , td {
   flex-direction: row;
 }
 
-.TableSection{
 
-}
 
 .StatSection{
   display:flex;
@@ -72,9 +70,8 @@ table, th , td {
   }
 
 
-
-
 }
+
 .addBtn{
   height:28px;
   width: auto;
@@ -84,6 +81,7 @@ table, th , td {
   border-radius: 5px;
   margin: auto;
 }
+
 #newRowOptions{
   background-color: rgba(127,219,255,0.3);
 }
@@ -111,14 +109,6 @@ table, th , td {
 .description {
   width: auto;
 }
-
-
-
-
-
-
-
-
 
 .containerGrid{
   display:grid;

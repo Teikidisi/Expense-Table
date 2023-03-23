@@ -3,4 +3,34 @@
     text-decoration: underline;
     color:#0d6efd;
     cursor:pointer;
+    margin-top: 1rem;
+    width:auto;
+}
+
+.mainDiv {
+    display: inline-block;
+}
+
+.Title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.error{
+    padding:0.2rem 0.5rem 0.2rem 0.5rem;
+    margin: 0.2rem 0.2rem 0.2rem 0.2rem;
+    background-color:rgb(238, 69, 69);
+    border: solid red;
+    border-radius:5px;
+    font-weight: 700;
+    display:inline-block;
+}
+
+.success{
+    background-color: rgba(34, 230, 34, 0.507);
+    border: solid green;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    margin: auto;
+    font-weight:700;
+    color:white;
 }

@@ -47,7 +47,7 @@
   }
   
   .hobby, .Hobby{
-    background-color: gold;
+    background-color:darkolivegreen
   }
   
   .groceries, .Groceries\/Gas{
@@ -65,4 +65,8 @@
   .numberClear{
     background-color: white;
     text-align: left;
+  }
+
+  .ahorros, .Ahorros{
+    background-color: gold;
   }

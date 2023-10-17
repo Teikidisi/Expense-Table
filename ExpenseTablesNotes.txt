@@ -1,12 +1,12 @@
-Implementar diseño de sidebar, toggable sidebar, tabs, hacer el flex correcto
-Hacer responsive design del main view
-
 Hacer diseño del CSS del login screen
 
-Implementar % de dinero total en cada seccion, a lado
 
 Implementar opcion de añadir mas a la lista de categorias, con un boton que abra un input para usarlo.
 
 Implementar el sistema de graficas para visualizar los gastos por tiempo/categoria/ingreso-egreso en base a la cantidad
 
-Implementar botones para borrar los datos de la tabla, primero eso y luego veo como editarlos directamente como si fueran un excel.
+Performance: Al actualizar la tabla y sus datos que solo inserte el valor cambiado a la tabla en vez de hacer un fetch de todos los datos.
+
+Guardar los datos del credit checker para cada usuario para no deber ingresarlos cada vez. Usar update para los cambios. Solo un renglon por usuario.
+Crear CSS del credit checker.
+Ingresar chart de en que se gastaron esas categorias de debito.

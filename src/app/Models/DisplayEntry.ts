@@ -6,4 +6,5 @@ export class DisplayEntryModel{
     Descripcion: string | null = '';
     ID = 0;
     displayId = 0;
+    isDebit: boolean;
 }

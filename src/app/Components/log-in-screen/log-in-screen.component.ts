@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUserProvider } from '../Handlers/Contracts/IUserProvider';
-import { UserProvider } from '../Handlers/Implementations/UserProvider';
-import { ServerConnectionService } from '../Services/server-connection.service';
+import { IUserProvider } from '../../Handlers/Contracts/IUserProvider';
+import { UserProvider } from '../../Handlers/Implementations/UserProvider';
+import { ServerConnectionService } from '../../Services/server-connection.service';
 
 @Component({
   selector: 'app-log-in-screen',

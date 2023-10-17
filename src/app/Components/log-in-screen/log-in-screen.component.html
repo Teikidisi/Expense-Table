@@ -36,8 +36,8 @@
         </div>
 
         <div *ngIf="isSignIn" class="mainDiv">
-            <p class="clickableText" (click)="SignUpSwitch()">No tienes cuenta? Crea una</p>
-            <p (click)="popupPassword = !popupPassword" class="clickableText">Olvidaste tu contraseña?</p>
+            <p class="clickableText" (click)="SignUpSwitch()">¿No tienes cuenta? Crea una</p>
+            <p (click)="popupPassword = !popupPassword" class="clickableText">¿Olvidaste tu contraseña?</p>
             <div *ngIf="popupPassword">
                 <label for="emailPW">Ingresa tu correo</label>
                 <input type="email" name="emailPW" [(ngModel)]="this.emailPW">

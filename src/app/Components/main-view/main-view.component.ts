@@ -1,19 +1,19 @@
 /* eslint-disable @angular-eslint/component-selector */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
-import { Categories } from '../Models/Categories';
-import { EntryModel } from '../Models/Entry';
+import { Categories } from '../../Models/Categories';
+import { EntryModel } from '../../Models/Entry';
 import { NgForm } from '@angular/forms';
-import { TableDataService } from '../Services/table-data.service';
-import { ServerConnectionService } from '../Services/server-connection.service';
-import { TableProvider } from '../Handlers/Implementations/TableProvider';
-import { ITableProvider } from '../Handlers/Contracts/ITableProvider';
-import * as moment from 'moment';
-import { IUserProvider } from '../Handlers/Contracts/IUserProvider';
-import { UserProvider } from '../Handlers/Implementations/UserProvider';
+import { TableDataService } from '../../Services/table-data.service';
+import { ServerConnectionService } from '../../Services/server-connection.service';
+import { TableProvider } from '../../Handlers/Implementations/TableProvider';
+import { ITableProvider } from '../../Handlers/Contracts/ITableProvider';
+import * as moment from 'dayjs';
+import { IUserProvider } from '../../Handlers/Contracts/IUserProvider';
+import { UserProvider } from '../../Handlers/Implementations/UserProvider';
 import { User } from '@supabase/supabase-js';
-import { DisplayEntryModel } from '../Models/DisplayEntry';
-import TableOperations from '../Helpers/table-operations'
+import { DisplayEntryModel } from '../../Models/DisplayEntry';
+import TableOperations from '../../Helpers/table-operations'
 
 
 @Component({
@@ -36,7 +36,6 @@ export class MainViewComponent implements OnInit {
   public tableOperations: TableOperations;
   public User: User;
 
-  public Entry = new EntryModel();
   public EntriesCollection: DisplayEntryModel[] = [];
   public Fecha = "01/01/0001";
   public Cantidad = 0;
@@ -44,6 +43,7 @@ export class MainViewComponent implements OnInit {
   public Descripcion = '';
   public Categories: (string|Categories)[] = Object.values(Categories).filter(x => isNaN(Number(x)));
   public p=1; 
+  public Entry = new EntryModel(this.Fecha,this.Cantidad,this.Categoria,this.Descripcion,0,false);
 
 
 
@@ -79,9 +79,19 @@ export class MainViewComponent implements OnInit {
       }
     });
   }
+  public toggleCheck(entry: EntryModel, userId: string){
+    entry.isDebit = !entry.isDebit;
+    this.tableProvider.updateEntryDebit(entry,userId).then((data) =>{
+      if(data){
+        this.ObtainData().then((data) => this.UpdateTableView(data));
+      }
+
+    }
+    );
+  }
 
   public async ObtainData(): Promise<EntryModel[]>{
-     return await this.tableProvider.getAllDataByDate();
+     return await this.tableProvider.getAllDataByDate(this.User.id);
   }
 
   public async onSubmit(form: NgForm):Promise<void>{
@@ -103,11 +113,11 @@ export class MainViewComponent implements OnInit {
           this.AddCalculateCheck(this.Entry)
           this.tableOperations.PercentageCheck();
           this.ObtainData().then((data) => this.UpdateTableView(data));
-          this.Entry = new EntryModel();
           this.Fecha = moment().format('yyyy-MM-DD');
           this.Cantidad = 0;
           this.Categoria = "";
           this.Descripcion = "";
+          this.Entry = new EntryModel(this.Fecha,this.Cantidad,this.Categoria,this.Descripcion,0,false);
       }
     });
   }
@@ -180,11 +190,13 @@ export class MainViewComponent implements OnInit {
         Cantidad: entry.Cantidad,
         Categoria: entry.Categoria,
         Descripcion: entry.Descripcion,
-        ID: entry.ID
+        ID: entry.ID,
+        isDebit: entry.isDebit
       })
       i++;
     });
   }
+
 
 
    NegativeCategories: string[] = [

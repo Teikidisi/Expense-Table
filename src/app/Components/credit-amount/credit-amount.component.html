@@ -1,0 +1,21 @@
+<h1>Crédito Disponible para gastar</h1>
+<p>Ingresa el día de corte y el límite de la tarjeta de crédito, y se calculará cuánto se ha gastado en pagos de débito para no pasarse sobre el límite de crédito</p>
+<div class="container">
+    <form #datosCredito="ngForm">
+        <div>
+            <label for="Fecha">Fecha de corte:</label>
+            <input name="Fecha" type="number" min="1" max="31" [(ngModel)]="this.diaCorte" (blur)="calculateDebitExpensesWithDate(this.gastosDebito,this.diaCorte)" />
+        </div>
+        <div>
+            <label for="Credito">Crédito máximo:</label>
+            <input type="number" name="Credito" min="0" [(ngModel)]="this.limiteOriginal" (blur)="calculateAvailableLimit()"  />
+        </div>
+
+    </form>
+</div>
+<p>Se ha gastado en débito: {{this.gastosDebitoCantidad}}</p>
+<div>
+    <p>{{limitDateInfView | date:'mediumDate'}}</p>
+    <p>{{limitDateSupView | date:'mediumDate'}}</p>
+</div>
+<p>Crédito ajustado: {{this.limiteActualizado}}</p>

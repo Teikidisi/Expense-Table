@@ -47,5 +47,13 @@ export class UserProvider implements IUserProvider{
         const{data: {user}} = await this.userService.getUser()
         return user;
     }
+
+    public isLoggedIn(): boolean{
+        let logged: boolean = false;
+        this.getUser().then((data) => {
+            if (data !== null) logged =  true;
+        })
+        return logged;
+    }
     
 }

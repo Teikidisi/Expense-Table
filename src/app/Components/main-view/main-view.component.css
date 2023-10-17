@@ -1,4 +1,4 @@
-@import url('../Styles/categoriesColors.css');
+@import url('../../Styles/categoriesColors.css');
 
 table, th , td {
   border: 1px solid black;
@@ -24,6 +24,9 @@ table, th , td {
   flex-direction: row;
 }
 
+.titleContainer{
+  margin-left:3.5rem;
+}
 
 
 .StatSection{
@@ -32,7 +35,7 @@ table, th , td {
   border-left: 1rem;
 }
 
-@media all and (max-width:50rem) {
+@media all and (max-width:73rem) {
   .ScreenWhole{
     display:flex;
     flex-direction:column-reverse;
@@ -56,7 +59,7 @@ table, th , td {
   }
 }
 
-@media all and (min-width:50rem) and ( max-width:87.5rem){
+@media all and (min-width:73rem) and ( max-width:87.5rem){
   .StatSection{
     display:flex;
     flex-direction: column;
@@ -126,4 +129,14 @@ table, th , td {
   width:max-content;
   margin-left: 9.8rem;
   margin-top:1em;
+}
+
+.DebitTableHeader{
+  box-sizing: border-box;
+  width:81px;
+}
+
+.CheckedImage{
+  width:30px;
+  height:30px;
 }

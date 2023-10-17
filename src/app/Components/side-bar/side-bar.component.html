@@ -1,0 +1,20 @@
+
+
+
+<div class="background">
+    <div *ngIf="!isSidebarShown" class=" closedSidebar sideBarBackground" >
+    </div>
+
+    <img src="assets/sidebar-right-svgrepo-com.svg" (click)="toggleSidebar()" width="40px" height="40px" class="toggleButton openButton">
+    <img src="assets/sidebar-left-svgrepo-com.svg" (click)="toggleSidebar()" width="40px" height="40px" class="toggleButton closeButton">
+    <div  class="sidebar openedSidebar sideBarBackground">
+        <div class="sidebarObjects">
+            <div class=" d-flex flex-column ">
+                <a routerLink="/main" routerLinkActive="active" class=" my-4">Ingresos y Gastos</a>
+                <a routerLink="/creditAmount" routerLinkActive="active" class=" my-4">Crédito Disponible</a>
+                <p (click)="logOut()" class="salida my-4">Salir</p>
+            </div>
+        </div>
+    </div>
+
+</div>
